@@ -1,6 +1,13 @@
 #ifndef MATCALC_HPP
 #define MATCALC_HPP
 
+/*
+ *  Rhys Trueman || 29/11/2020
+ *  Holds the interface avaliable to the user
+ *  should handle user text input (check)
+ *  save and load workspaces (variable sets essentially) (TODO)
+ * /
+
 #include "Workspace.hpp"
 #include <string>
 #include <vector>

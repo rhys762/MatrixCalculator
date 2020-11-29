@@ -1,6 +1,13 @@
 #ifndef EQUATION_HPP
 #define EQUATION_HPP
 
+/*
+ *  Rhys Trueman 29/11/2020 ish
+ *
+ *  Calculates the results of equations according to BEDMAS or BODMAS or whatever its called now.
+ *  Oh but it cant do operators yet
+ * /
+
 #include <iostream>
 #include <vector>
 #include <exception>

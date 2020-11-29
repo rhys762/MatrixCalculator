@@ -1,6 +1,13 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
+/*
+ *  Rhys Trueman || 29/11/2020
+ *
+ *  Minimal matrix class for now, may need to be expanded
+ *  also TODO needs a move constructor probably
+ * /
+
 #include <exception>
 #include <string>
 #include <iostream>

@@ -1,6 +1,7 @@
 #include "matrixEquationParse.hpp"
 #include "matrixParse.hpp"
 #include "isChar.hpp"
+#include "MatCalcExcep.hpp"
 
 //return an equation parsed from a string, which is copied by value
 Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
@@ -37,7 +38,7 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
 			//after exiting above, we've either found the closing bracket or hit end, which means weve got an unclosed bracket
 			if(start + len == str.length())
 			{
-				throw 2;
+                throw MatCalcExcep("Couldnt find closing bracket", str, start - 1);
 			}
 			//if it was the closing bracket, send the contents to matrixParse and append to equation
 			output.appendValue(matrixParse(str.substr(start, len)));
@@ -64,7 +65,7 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
 		else
 		{
 			//unexpected char :(
-			throw 1;
+            throw MatCalcExcep("unexpected character", str, start);
 		}
 	}
 

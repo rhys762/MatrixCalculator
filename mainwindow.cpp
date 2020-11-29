@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "MatCalc.hpp"
+#include "MatCalcExcep.hpp"
 
 #include <string>
 #include <sstream>
@@ -36,9 +37,9 @@ void MainWindow::on_lineEdit_returnPressed()
             ui->textBrowser->append(QString::fromStdString(line));
         }
     }
-    catch(std::exception & e)
+    catch(MatCalcExcep & e)
     {
-        ui->textBrowser->append(QString::fromStdString(e.what()));
+        ui->textBrowser->append(QString::fromStdString(std::string(e.what())));
     }
     catch(...)
     {

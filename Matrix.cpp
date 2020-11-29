@@ -1,5 +1,6 @@
 #include "Matrix.hpp"
 #include <exception>	
+#include "MatCalcExcep.hpp"
 
 //default for equation, gives an empty Matrix
 Matrix::Matrix()
@@ -70,7 +71,7 @@ Matrix & Matrix::operator+=(const Matrix & m)
 {
 	if(m.mRows != mRows || m.mColumns != mColumns)
 	{
-		throw Exception("Matrix+: invalid matrix sizes");
+        throw MatCalcExcep("Matrix+: invalid matrix sizes");
 	}
 
 	for(int i = 0; i < mSize; i++)
@@ -85,7 +86,7 @@ Matrix & Matrix::operator-=(const Matrix & m)
 {
 	if(m.mRows != mRows || m.mColumns != mColumns)
 	{
-		throw Exception("Matrix-: invalid matrix sizes");
+        throw MatCalcExcep("Matrix-: invalid matrix sizes");
 	}
 
 	for(int i = 0; i < mSize; i++)
@@ -100,7 +101,7 @@ Matrix & Matrix::operator*=(const Matrix & m)
 {
 	if(mColumns != m.mRows)
 	{
-		throw Exception("Matrix*: LHS column did not match RHS row");
+        throw MatCalcExcep("Matrix*: LHS column did not match RHS row");
 	}
 
 	Matrix result (mRows, m.mColumns);
@@ -126,7 +127,7 @@ Matrix & Matrix::operator*=(const Matrix & m)
 }
 Matrix & Matrix::operator/=(const Matrix & m)
 {
-	throw Exception("Matrix/: matricies cant be multiplied");
+    throw MatCalcExcep("Matrix/: matricies cant be multiplied");
 }
 		
 //print

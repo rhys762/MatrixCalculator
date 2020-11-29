@@ -12,21 +12,6 @@
 #include <string>
 #include <iostream>
 
-//this should be moved somewhere else probably
-class Exception : public std::exception
-{
-	public:
-		Exception(const std::string & errMsg)
-		:str{errMsg}
-		{}
-		const char * what()
-		{
-			return str.c_str();
-		}
-	private:
-		std::string str;
-};
-
 class Matrix
 {
 	public:

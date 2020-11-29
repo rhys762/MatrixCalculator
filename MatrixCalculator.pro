@@ -31,7 +31,8 @@ SOURCES += \
     Matrix.cpp \
     matrixEquationParse.cpp \
     matrixParse.cpp \
-    Workspace.cpp
+    Workspace.cpp \
+    MatCalcExcep.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
     Matrix.hpp \
     matrixEquationParse.hpp \
     matrixParse.hpp \
-    Workspace.hpp
+    Workspace.hpp \
+    MatCalcExcep.hpp
 
 FORMS += \
         mainwindow.ui

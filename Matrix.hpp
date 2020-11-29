@@ -1,0 +1,58 @@
+#ifndef MATRIX_HPP
+#define MATRIX_HPP
+
+#include <exception>
+#include <string>
+#include <iostream>
+
+//this should be moved somewhere else probably
+class Exception : public std::exception
+{
+	public:
+		Exception(const std::string & errMsg)
+		:str{errMsg}
+		{}
+		const char * what()
+		{
+			return str.c_str();
+		}
+	private:
+		std::string str;
+};
+
+class Matrix
+{
+	public:
+		//default for equation, gives an empty Matrix
+		Matrix();
+		//r by c matrix, 0 for all elements
+		Matrix(int r, int c);
+		//copy
+		Matrix(const Matrix & m);
+		//des
+		~Matrix();
+		//assignment
+		Matrix & operator=(const Matrix & m);
+
+		//access
+		double & access(int r, int c);
+		double access(int r, int c) const;
+	
+		//arith
+		Matrix & operator+=(const Matrix & m);
+		Matrix & operator-=(const Matrix & m);
+		Matrix & operator*=(const Matrix & m);
+		Matrix & operator/=(const Matrix & m);
+
+		//print
+		friend std::ostream & operator<<(std::ostream & os, const Matrix & m);
+		//convert to string
+		std::string toStr();
+	private:
+		double * mElements = nullptr;
+		int mSize = 0, mRows = 0, mColumns = 0;
+};
+
+
+
+#endif

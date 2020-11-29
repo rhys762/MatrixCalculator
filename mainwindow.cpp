@@ -23,14 +23,25 @@ MainWindow::~MainWindow()
 void MainWindow::on_lineEdit_returnPressed()
 {
     std::string userInput = ui->lineEdit->text().toStdString();
-    std::stringstream response (mc.input(userInput));
-    std::string line;
-
     ui->textBrowser->append(QString::fromStdString("<< " + userInput));
-    while(getline(response, line))
-    {
-        ui->textBrowser->append(QString::fromStdString(line));
-    }
-
     ui->lineEdit->clear();
+
+    try
+    {
+        std::stringstream response (mc.input(userInput));
+        std::string line;
+
+        while(getline(response, line))
+        {
+            ui->textBrowser->append(QString::fromStdString(line));
+        }
+    }
+    catch(std::exception & e)
+    {
+        ui->textBrowser->append(QString::fromStdString(e.what()));
+    }
+    catch(...)
+    {
+        ui->textBrowser->append("unknown error :(");
+    }
 }

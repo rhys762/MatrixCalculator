@@ -6,7 +6,7 @@
  *
  *  Just a pointless wrapper for a stdmap at the moment, but will eventually have functions,
  *  somehow....
- * /
+ */
 
 #include <map>
 #include <string>

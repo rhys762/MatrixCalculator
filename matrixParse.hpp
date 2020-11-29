@@ -5,7 +5,7 @@
  *  Rhys Trueman || 29/11/2020
  *
  *  Parses an equation from a string
- * /
+ */
 
 #include "Matrix.hpp"
 #include <string>

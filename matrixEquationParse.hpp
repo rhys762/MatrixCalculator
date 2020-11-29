@@ -5,7 +5,7 @@
  *  Rhys Trueman || 29/11/2020 ish
  *
  *  parses a string into an equation that can be solved
- * /
+ */
 
 #include "Equation.hpp"
 #include "Matrix.hpp"

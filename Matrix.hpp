@@ -6,7 +6,7 @@
  *
  *  Minimal matrix class for now, may need to be expanded
  *  also TODO needs a move constructor probably
- * /
+ */
 
 #include <exception>
 #include <string>

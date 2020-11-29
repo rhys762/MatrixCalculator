@@ -6,7 +6,7 @@
  *  Holds the interface avaliable to the user
  *  should handle user text input (check)
  *  save and load workspaces (variable sets essentially) (TODO)
- * /
+ */
 
 #include "Workspace.hpp"
 #include <string>

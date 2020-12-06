@@ -7,23 +7,17 @@ MatCalcExcep::MatCalcExcep(std::string errorMesssage, std::string userInput, int
 
 std::string MatCalcExcep::what() const throw()
 {
-    std::string result = (mErrorMessage + "\n");
+    std::string result = (mErrorMessage + "<br>");
 
-    if(mUserInput.length())
+    if(mUserInput.length() && mIndex >= 0)
     {
-        result += (mUserInput + "\n");
+        //display character mIndex in red and bold
+        result += (mUserInput.substr(0, mIndex) + "<b style=\"color: red\">" + mUserInput[mIndex] + "</b>" + mUserInput.substr(mIndex+1) + "<br>");
+    }
+    else if(mUserInput.length())
+    {
+        result += (mUserInput + "<br>");
     }
 
-    if(mIndex >= 0)
-    {
-        for(int j = 0; j < mIndex; j++)
-        {
-            result += " ";
-        }
-
-        result += "^\n";
-    }
-
-    std::cout << result;
     return result;
 }

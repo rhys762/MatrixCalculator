@@ -32,7 +32,7 @@ std::string MatCalc::input(const std::string & userInput)
 	auto eq = matrixEquationParse(userInput.substr(assLoc+1), work);
 	work[target] = eq.solve();
 
-	std::string output = target + " =\n";
+    std::string output = target + " =<br>";
 	output += work[target].toStr();
 	return output;
 }

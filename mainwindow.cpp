@@ -4,7 +4,6 @@
 #include "MatCalcExcep.hpp"
 
 #include <string>
-#include <sstream>
 
 MatCalc mc;
 
@@ -24,25 +23,19 @@ MainWindow::~MainWindow()
 void MainWindow::on_lineEdit_returnPressed()
 {
     std::string userInput = ui->lineEdit->text().toStdString();
-    ui->textBrowser->append(QString::fromStdString("<< " + userInput));
+    ui->textBrowser->insertHtml(QString::fromStdString(">>" + userInput + "<br>"));
     ui->lineEdit->clear();
 
     try
-    {
-        std::stringstream response (mc.input(userInput));
-        std::string line;
-
-        while(getline(response, line))
-        {
-            ui->textBrowser->append(QString::fromStdString(line));
-        }
+    {   
+        ui->textBrowser->insertHtml(QString::fromStdString(mc.input(userInput)));
     }
     catch(MatCalcExcep & e)
     {
-        ui->textBrowser->append(QString::fromStdString(std::string(e.what())));
+        ui->textBrowser->insertHtml(QString::fromStdString(e.what()));
     }
     catch(...)
     {
-        ui->textBrowser->append("unknown error :(");
+        ui->textBrowser->insertHtml("unknown error :(<br>");
     }
 }

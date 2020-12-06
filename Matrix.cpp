@@ -165,9 +165,9 @@ std::string Matrix::toStr()
 	
 	for(int r = 1; r < mRows; r++)
 	{
-		str += ("\n  " + printRow(r));
+        str += ("<br>  " + printRow(r));
 	}
 	
-	str += "]\n";
+    str += "]<br>";
 	return str;
 }

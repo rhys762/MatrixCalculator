@@ -4,26 +4,23 @@
 /*
  *  Rhys Trueman || 8/12/2020
  *
- *  Going to be a wrapper for basically a dynamic variable
- *  Could be a matrix value, a matrix reference (to a variable in Workspace), a double, a double reference (to a variable in Workspace), a function call, etc
+ * wrapper for a Variable, can either be L value or R value basically. Will be the template type for Equation
  */
 
 #include "Matrix.hpp"
+#include "Variable.hpp"
+
+//what an ungodly mess....
 
 class Token
 {
     public:
         //default constructor
         Token();
-        //set the token
-        //set to matrix value, takes ownership
-        void setMatrix(Matrix * mat);
-        //set to matrix reference, does not take value
-        void setMatrixRef(Matrix * mat);
-        //set to double value, takes ownership
-        void setDouble(double * dub);
-        //set to double reference, takes ownership
-        void setDoubleRef(double * dub);
+        //the Token represent a pure value, ie 6 or a matrix [1 2; 3 4]
+        Token(const Variable & rvalue);
+        //the token is refering to a variable, say "A", as such assigning or modifying this token will modify A as they are one and the same
+        Token(Variable * lvalue);
         //copy
         Token(const Token & other);
         //assignment
@@ -37,15 +34,14 @@ class Token
         enum TYPE
         {
             MATRIX, //the token is a Matrix value
-            MATRIXREF, //the token is a reference to a Matrix
             DOUBLE, //the token is a double value
-            DOUBLEREF, //the token is a reference to a double
-            FUNC, //the token represents a function call
+            REF, //the token is a reference to a variable
             NONE //the token is nothing, default
-        } mType;
+        } mType = NONE;
 
         Matrix * mMatrix = nullptr;
         double * mDouble = nullptr;
+        Token * mRef = nullptr;
 
         //clear any value owned by the Token
         void clear();

@@ -6,7 +6,6 @@
 //return an equation parsed from a string, which is copied by value
 Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
 {
-    std::cout << "equation parse recieved : " << str << '\n';
 	//the equation we will build up over the parse
 	Equation<Matrix> output;
 	
@@ -69,8 +68,6 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
             throw MatCalcExcep("unexpected character", str, start);
 		}
 	}
-
-    std::cout << "parsed equation #START#\n" << output << "\n#END#\n";
 
 	return output;
 }

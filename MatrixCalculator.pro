@@ -33,7 +33,8 @@ SOURCES += \
     matrixParse.cpp \
     Workspace.cpp \
     MatCalcExcep.cpp \
-    Token.cpp
+    Token.cpp \
+    Variable.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     matrixParse.hpp \
     Workspace.hpp \
     MatCalcExcep.hpp \
-    Token.hpp
+    Token.hpp \
+    Variable.hpp
 
 FORMS += \
         mainwindow.ui

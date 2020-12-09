@@ -65,7 +65,17 @@ double Matrix::access(int r, int c) const
 {
 	return mElements[r * mColumns + c];
 }
-		
+
+double & Matrix::access(int i)
+{
+    return mElements[i];
+}
+
+double Matrix::access(int i) const
+{
+    return mElements[i];
+}
+
 //arith
 Matrix & Matrix::operator+=(const Matrix & m)
 {
@@ -170,6 +180,11 @@ std::string Matrix::toStr()
 	
     str += "]<br>";
 	return str;
+}
+
+int Matrix::size() const
+{
+    return mSize;
 }
 
 Matrix operator+(Matrix A, const Matrix & B)

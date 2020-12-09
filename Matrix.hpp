@@ -29,7 +29,9 @@ class Matrix
 		//access
 		double & access(int r, int c);
 		double access(int r, int c) const;
-	
+        double & access(int i);
+        double access(int i) const;
+
 		//arith
 		Matrix & operator+=(const Matrix & m);
 		Matrix & operator-=(const Matrix & m);
@@ -40,6 +42,9 @@ class Matrix
 		friend std::ostream & operator<<(std::ostream & os, const Matrix & m);
 		//convert to string
 		std::string toStr();
+
+        //get size
+        int size() const;
 	private:
 		double * mElements = nullptr;
 		int mSize = 0, mRows = 0, mColumns = 0;

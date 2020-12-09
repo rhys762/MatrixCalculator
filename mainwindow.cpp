@@ -27,8 +27,6 @@ void MainWindow::on_lineEdit_returnPressed()
     ui->textBrowser->insertHtml(QString::fromStdString(">>" + userInput + "<br>"));
     ui->lineEdit->clear();
 
-    std::cout << "recieved user input \"" << userInput << "\"\n";
-
     try
     {   
         ui->textBrowser->insertHtml(QString::fromStdString(mc.input(userInput)));

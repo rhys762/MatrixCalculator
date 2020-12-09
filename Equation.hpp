@@ -145,17 +145,14 @@ int Equation<T>::performOperationAt(int i)
 	{
 		case '(':
 			end = findClosingBracket(i);
-            std::cout << "solving brackets from [" << i << ", " << end << "]\n";
             solve(i+1, end);
 			//now we should have something like ( VALUE )
             //insert the new token to the left of the left bracket (which is i)
             newToken.value = mEquation[i+1].value;
-            std::cout << "new token holds " << newToken.value << '\n';
             mEquation.insert(mEquation.begin() + i, newToken);
 			//because the erase call removes i, which is now VALUE, increment i
 			//now the number of things we removed is end - i, but we only want to remove 2
             mEquation.erase(mEquation.begin() + i + 1, mEquation.begin() + i + 4);
-            std::cout << "after insert is " << *this << '\n';
             return end - i - 1;
 			break;
 		case '*':
@@ -179,9 +176,6 @@ int Equation<T>::performOperationAt(int i)
 
     //insert the new token
     mEquation.insert(mEquation.begin() + i - 1, newToken);
-
-    std::cout << "i did arithmatic\n";
-    std::cout << *this << '\n';
 
 	//remove the parts of the equaiton we no longer need
     mEquation.erase(mEquation.begin() + i, mEquation.begin() + i + 3);

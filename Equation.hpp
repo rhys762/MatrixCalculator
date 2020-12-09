@@ -5,7 +5,8 @@
  *  Rhys Trueman 29/11/2020 ish
  *
  *  Calculates the results of equations according to BEDMAS or BODMAS or whatever its called now.
- *  Oh but it cant do operators yet
+ *
+ *  Requirements for the template are +, -, *, /, =
  */
 
 #include <iostream>
@@ -115,45 +116,77 @@ T Equation<T>::solve()
 template <typename T>
 int Equation<T>::performOperationAt(int i)
 {
-	//after we perform the op a varying number of elements will need to be removed
-	int elementsToErase = 0;
-	int end;
+    //the jist of this is (brackets and assignment are an exception, with brackets being extra complicated)
+    //we want to resolve the equation "A + B"
+    //create a new token C = A + B
+    //insert C before A leaving the equation as "C A + B"
+    //remove 3 elements leaving "C"
+    //done
+
+    //why not just do A += B, remove "+ B"? (like it was originally)
+    //because the Token class needs to be able to represent a reference to a variable, which can modify the variable it refers to
+    //in which case the equation A + 5 would actually modify the value at A which is not what i want
+
+    //= is another exception, in that we dont actually need to insert a new token
+
+    //jesus christ i wish i knew how to write code
+
+    //C above is newToken
+    token newToken;
+    newToken.type = T_VALUE;
+
+    //after we perform the op a varying number of elements will need to be removed
+    int elementsToErase = 0;
+
+    //used in bracket case
+    int end;
 
 	switch(mEquation[i].op)
 	{
 		case '(':
 			end = findClosingBracket(i);
-			i++;
-			solve(i, end);
+            std::cout << "solving brackets from [" << i << ", " << end << "]\n";
+            solve(i+1, end);
 			//now we should have something like ( VALUE )
-			//move the value to the left bracket (which is i)
-			mEquation[i-1] = mEquation[i];
+            //insert the new token to the left of the left bracket (which is i)
+            newToken.value = mEquation[i+1].value;
+            std::cout << "new token holds " << newToken.value << '\n';
+            mEquation.insert(mEquation.begin() + i, newToken);
 			//because the erase call removes i, which is now VALUE, increment i
 			//now the number of things we removed is end - i, but we only want to remove 2
-			mEquation.erase(mEquation.begin() + i, mEquation.begin() + i + 2);
-			return end - i;
+            mEquation.erase(mEquation.begin() + i + 1, mEquation.begin() + i + 4);
+            std::cout << "after insert is " << *this << '\n';
+            return end - i - 1;
 			break;
 		case '*':
-			mEquation[i-1].value *= mEquation[i+1].value;
-			elementsToErase = 2;
+            newToken.value = mEquation[i-1].value * mEquation[i+1].value;
 			break;
 		case '/':
-			mEquation[i-1].value /= mEquation[i+1].value;
-			elementsToErase = 2;
+            newToken.value = mEquation[i-1].value / mEquation[i+1].value;
 			break;
 		case '+':
-			mEquation[i-1].value += mEquation[i+1].value;
-			elementsToErase = 2;
+            newToken.value = mEquation[i-1].value + mEquation[i+1].value;
 			break;
 		case '-':
-			mEquation[i-1].value -= mEquation[i+1].value;
-			elementsToErase = 2;
+            newToken.value = mEquation[i-1].value - mEquation[i+1].value;
 			break;
+        case '=':
+            mEquation[i-1].value = mEquation[i+1].value;
+            mEquation.erase(mEquation.begin() + i, mEquation.begin() + i + 2);
+            return 2;
+            break;
 	}
 
+    //insert the new token
+    mEquation.insert(mEquation.begin() + i - 1, newToken);
+
+    std::cout << "i did arithmatic\n";
+    std::cout << *this << '\n';
+
 	//remove the parts of the equaiton we no longer need
-	mEquation.erase(mEquation.begin() + i, mEquation.begin() + i + elementsToErase);
-	return elementsToErase;
+    mEquation.erase(mEquation.begin() + i, mEquation.begin() + i + 3);
+
+    return 2;//we have removed 3 tokens but added 1 for a net removal of 2
 }
 		
 //perform all operations of type op, on [start, end), which serve as in out paramaters
@@ -180,6 +213,7 @@ void Equation<T>::solve(int start, int end)
 	performOperationsIn('/', start, end);
 	performOperationsIn('+', start, end);
 	performOperationsIn('-', start, end);
+    performOperationsIn('=', start, end);
 }
 		
 //find the closing bracket, to the bracket open at i, returns -1 on no close

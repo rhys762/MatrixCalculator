@@ -45,6 +45,9 @@ class Matrix
 		int mSize = 0, mRows = 0, mColumns = 0;
 };
 
-
+Matrix operator+(Matrix A, const Matrix & B);
+Matrix operator-(Matrix A, const Matrix & B);
+Matrix operator*(Matrix A, const Matrix & B);
+Matrix operator/(Matrix A, const Matrix & B);
 
 #endif

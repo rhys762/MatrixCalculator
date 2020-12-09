@@ -6,6 +6,7 @@
 //return an equation parsed from a string, which is copied by value
 Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
 {
+    std::cout << "equation parse recieved : " << str << '\n';
 	//the equation we will build up over the parse
 	Equation<Matrix> output;
 	
@@ -43,7 +44,7 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
 			//if it was the closing bracket, send the contents to matrixParse and append to equation
 			output.appendValue(matrixParse(str.substr(start, len)));
 			//now move start forward
-			start += (len + 2);
+            start += (len + 1);
 		}
 		else if(isChar(str[start]))
 		{
@@ -68,6 +69,8 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
             throw MatCalcExcep("unexpected character", str, start);
 		}
 	}
+
+    std::cout << "parsed equation #START#\n" << output << "\n#END#\n";
 
 	return output;
 }

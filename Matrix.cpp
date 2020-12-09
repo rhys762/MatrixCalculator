@@ -171,3 +171,23 @@ std::string Matrix::toStr()
     str += "]<br>";
 	return str;
 }
+
+Matrix operator+(Matrix A, const Matrix & B)
+{
+    return A += B;
+}
+
+Matrix operator-(Matrix A, const Matrix & B)
+{
+    return A -= B;
+}
+
+Matrix operator*(Matrix A, const Matrix & B)
+{
+    return A *= B;
+}
+
+Matrix operator/(Matrix A, const Matrix & B)
+{
+    return A /= B;
+}

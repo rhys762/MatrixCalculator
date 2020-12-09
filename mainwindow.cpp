@@ -4,6 +4,7 @@
 #include "MatCalcExcep.hpp"
 
 #include <string>
+#include <iostream>//debug
 
 MatCalc mc;
 
@@ -25,6 +26,8 @@ void MainWindow::on_lineEdit_returnPressed()
     std::string userInput = ui->lineEdit->text().toStdString();
     ui->textBrowser->insertHtml(QString::fromStdString(">>" + userInput + "<br>"));
     ui->lineEdit->clear();
+
+    std::cout << "recieved user input \"" << userInput << "\"\n";
 
     try
     {   

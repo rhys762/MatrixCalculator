@@ -4,7 +4,7 @@
 #include <iostream>
 
 //parse a matrix from a string, expects it to be of the form "1, 2; 3, 4" with commas being optional
-Matrix matrixParse(const std::string & input)
+Matrix * matrixParse(const std::string & input)
 {
 	//stream for extracting from the string
 	std::stringstream inputStream(input);
@@ -56,15 +56,17 @@ Matrix matrixParse(const std::string & input)
 
 
 	//string has been parsed and columns of each row match, create and fill matrix:	
-	Matrix output (rows, columns);
+    Matrix * output = new Matrix (rows, columns);
 
 	for(int r = 0; r < rows; r++)
 	{
 		for(int c = 0; c < columns; c++)
 		{
-			output.access(r,c) = elems[r][c];
+            output->access(r,c) = elems[r][c];
 		}
 	}
+
+    std::cout << "MP parsed " << *output << "\n";
 
 	return output;
 }

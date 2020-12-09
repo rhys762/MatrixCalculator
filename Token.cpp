@@ -1,87 +1,152 @@
 #include "Token.hpp"
 
+//default, should really not be used..
 Token::Token()
-{}//trivial, defaults set in header
+{}
 
-//set to matrix value, takes ownership
-void Token::setMatrix(Matrix * mat)
+//the Token represent a pure value, ie 6 or a matrix [1 2; 3 4]
+Token::Token(const Variable & rvalue)
 {
-    clear();
-    mType = MATRIX;
-    mMatrix = mat;
+    mVar = rvalue;
+    std::cout << "created value token with \"" << mVar.toStr() << "\"\n";
 }
 
-//set to double value, takes ownership
-void setDouble(double * dub)
+//the token is refering to a variable, say "A", as such assigning or modifying this token will modify A as they are one and the same
+Token::Token(Variable * lvalue)
 {
-    clear();
-    mType = DOUBLE;
-    mDouble = dub;
-}
-
-//set to a (variable) reference, takes ownership
-void setRef(Token * ref)
-{
-    clear();
-    mType = REF;
-    mRef = ref;
-}
-
-//copy
-Token::Token(const Token & other)
-{
-
+    mRef = lvalue;
 }
 
 //assignment
 Token & Token::operator=(const Token & other)
 {
-    //if we are a reference, we need to set the value at our reference to the value at other
-    if(mType == REF)
+    Variable v;
+    if(other.mRef)
     {
-        *mRef = other;
+        v = *mRef;
     }
-    else//otherwise shallow copy
+    else
     {
-        mType = other.mType;
-        if(other.mDouble)
-        {
+        v = mVar;
+    }
 
-        }
+    if(mRef)
+    {
+        *mRef = v;
     }
+    else
+    {
+        mVar = v;
+    }
+    return *this;
 }
 
 //arithmatic
-Token & Token::operator+(const Token & other)
+Token & Token::operator+=(const Token & other)
 {
+    Variable v = (other.mRef) ? (*other.mRef) : (other.mVar);
 
-}
-
-Token & Token::operator-(const Token & other)
-{
-
-}
-
-Token & Token::operator*(const Token & other)
-{
-
-}
-
-Token & Token::operator/(const Token & other)
-{
-
-}
-
-//clear any value owned by the Token
-void Token::clear()
-{
-    if(mType == MATRIX || mType == DOUBLE)
+    if(mRef)
     {
-        delete mMatrix;
-        delete mDouble;
+        *mRef += v;
+    }
+    else
+    {
+        mVar += v;
     }
 
-    mMatrix = nullptr;
-    mDouble = nullptr;
-    mType = NONE;
+    return *this;
+}
+
+Token & Token::operator-=(const Token & other)
+{
+    Variable v = (other.mRef) ? (*other.mRef) : (other.mVar);
+
+    if(mRef)
+    {
+        *mRef -= v;
+    }
+    else
+    {
+        mVar -= v;
+    }
+
+    return *this;
+}
+
+Token & Token::operator*=(const Token & other)
+{
+    Variable v = (other.mRef) ? (*other.mRef) : (other.mVar);
+
+    if(mRef)
+    {
+        *mRef *= v;
+    }
+    else
+    {
+        mVar *= v;
+    }
+
+    return *this;
+}
+
+Token & Token::operator/=(const Token & other)
+{
+    Variable v = (other.mRef) ? (*other.mRef) : (other.mVar);
+
+    if(mRef)
+    {
+        *mRef /= v;
+    }
+    else
+    {
+        mVar /= v;
+    }
+
+    return *this;
+}
+
+Token Token::operator+(const Token & B) const
+{
+    Variable a = (mRef) ? (*mRef) : (mVar);
+    Variable b = (B.mRef) ? (*B.mRef) : (B.mVar);
+    Variable c = a + b;
+    return c;
+}
+
+Token Token::operator-(const Token & B) const
+{
+    Variable a = (mRef) ? (*mRef) : (mVar);
+    Variable b = (B.mRef) ? (*B.mRef) : (B.mVar);
+    Variable c = a - b;
+    return c;
+}
+
+Token Token::operator*(const Token & B) const
+{
+    Variable a = (mRef) ? (*mRef) : (mVar);
+    Variable b = (B.mRef) ? (*B.mRef) : (B.mVar);
+    Variable c = a * b;
+    return c;
+}
+
+Token Token::operator/(const Token & B) const
+{
+    Variable a = (mRef) ? (*mRef) : (mVar);
+    Variable b = (B.mRef) ? (*B.mRef) : (B.mVar);
+    Variable c = a / b;
+    return c;
+}
+
+//get the variable value
+Variable Token::getVar() const
+{
+    return (mRef) ? (*mRef) : (mVar);
+}
+
+//debug
+std::ostream & operator<<(std::ostream & os, const Token & tok)
+{
+    os << tok.getVar().toStr();
+    return os;
 }

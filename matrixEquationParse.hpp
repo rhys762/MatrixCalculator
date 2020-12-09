@@ -8,11 +8,11 @@
  */
 
 #include "Equation.hpp"
-#include "Matrix.hpp"
 #include <string>
 #include "Workspace.hpp"
+#include "Token.hpp"
 
 //return an equation parsed from a string, which is copied by value
-Equation<Matrix> matrixEquationParse(std::string str, Workspace & w);
+Equation<Token> matrixEquationParse(std::string str, Workspace & w);
 
 #endif

@@ -34,7 +34,8 @@ SOURCES += \
     Workspace.cpp \
     MatCalcExcep.cpp \
     Token.cpp \
-    Variable.cpp
+    Variable.cpp \
+    VarExcept.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
     Workspace.hpp \
     MatCalcExcep.hpp \
     Token.hpp \
-    Variable.hpp
+    Variable.hpp \
+    VarExcept.hpp
 
 FORMS += \
         mainwindow.ui

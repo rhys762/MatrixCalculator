@@ -9,15 +9,6 @@
 
 #include "Matrix.hpp"
 
-class VarExcept
-{
-public:
-    VarExcept(std::string s);
-    std::string what() const throw();
-private:
-    std::string str;
-}
-
 class Variable
 {
     public:
@@ -49,7 +40,8 @@ class Variable
         Variable & operator/=(const Variable & other);
 
         //get the type of variable
-        TYPE getType();
+        TYPE getType() const;
+        std::string toStr() const;
     private:
         TYPE mType = NONE;
         double mDouble = 0;

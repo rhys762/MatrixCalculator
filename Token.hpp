@@ -7,44 +7,43 @@
  * wrapper for a Variable, can either be L value or R value basically. Will be the template type for Equation
  */
 
-#include "Matrix.hpp"
-#include "Variable.hpp"
+#include <iostream>//debug
 
-//what an ungodly mess....
+#include "Variable.hpp"
 
 class Token
 {
     public:
-        //default constructor
+        //default, should really not be used..
         Token();
         //the Token represent a pure value, ie 6 or a matrix [1 2; 3 4]
         Token(const Variable & rvalue);
         //the token is refering to a variable, say "A", as such assigning or modifying this token will modify A as they are one and the same
         Token(Variable * lvalue);
         //copy
-        Token(const Token & other);
+        //Token(const Token & other);//trivial? shallow seems fine
         //assignment
         Token & operator=(const Token & other);
         //arithmatic
-        Token & operator+(const Token & other);
-        Token & operator-(const Token & other);
-        Token & operator*(const Token & other);
-        Token & operator/(const Token & other);
+        Token & operator+=(const Token & other);
+        Token & operator-=(const Token & other);
+        Token & operator*=(const Token & other);
+        Token & operator/=(const Token & other);
+        Token operator+(const Token & B) const;
+        Token operator-(const Token & B) const;
+        Token operator*(const Token & B) const;
+        Token operator/(const Token & B) const;
+
+        //funcs
+        //get the variable value
+        Variable getVar() const;
     private:
-        enum TYPE
-        {
-            MATRIX, //the token is a Matrix value
-            DOUBLE, //the token is a double value
-            REF, //the token is a reference to a variable
-            NONE //the token is nothing, default
-        } mType = NONE;
-
-        Matrix * mMatrix = nullptr;
-        double * mDouble = nullptr;
-        Token * mRef = nullptr;
-
-        //clear any value owned by the Token
-        void clear();
+        Variable mVar;
+        //if we are actually referring to a lvalue this pointer will point to it, otherwise we are an rValue use mVar
+        Variable * mRef = nullptr;
 };
+
+//debug
+std::ostream & operator<<(std::ostream & os, const Token & tok);
 
 #endif

@@ -1,4 +1,5 @@
 #include "Variable.hpp"
+#include "VarExcept.hpp"
 
 //trivial default
 Variable::Variable()
@@ -15,6 +16,7 @@ Variable::Variable(Matrix * m)//takes ownership so should be a unique ptr sorry 
 {
     mType = MATRIX;
     mMatrix = m;
+    std::cout << "creating Matrix variable " << *m << "\n";
 }
 
 //copy
@@ -22,7 +24,7 @@ Variable::Variable(const Variable & other)
 {
     if((mType = other.mType) == MATRIX)
     {//if matrix
-        mMatrix = new Matrix(other.mMatrix);
+        mMatrix = new Matrix(*other.mMatrix);
     }
     else
     {//if double
@@ -41,7 +43,7 @@ Variable & Variable::operator=(const Variable & other)
 
     if((mType = other.mType) == MATRIX)
     {//if matrix
-        mMatrix = new Matrix(other.mMatrix);
+        mMatrix = new Matrix(*other.mMatrix);
     }
     else
     {//if double
@@ -137,32 +139,50 @@ Variable & Variable::operator*=(const Variable & other)
 
 Variable & Variable::operator/=(const Variable & other)
 {
+    if(mType == other.mType && mType == DOUBLE)
+    {
+        mDouble /= other.mDouble;
+        return *this;
+    }
     throw VarExcept("cant multiply a matrix");
 }
 
 //get the type of variable
-TYPE Variable::getType()
+Variable::TYPE Variable::getType() const
 {
     return mType;
 }
 
+std::string Variable::toStr() const
+{
+    if(mType == MATRIX)
+    {
+        return mMatrix->toStr();
+    }
+    else
+    {
+        return std::to_string(mDouble);
+    }
+}
+
 //external arith
-Variable Variable::operator+(Variable A, const Variable & B)
+Variable operator+(Variable A, const Variable & B)
 {
     return A += B;
 }
 
-Variable Variable::operator-(Variable A, const Variable & B)
+Variable operator-(Variable A, const Variable & B)
 {
     return A -= B;
 }
 
-Variable Variable::operator*(Variable A, const Variable & B)
+Variable operator*(Variable A, const Variable & B)
 {
     return A *= B;
 }
 
-Variable Variable::operator/(Variable A, const Variable & B)
+Variable operator/(Variable A, const Variable & B)
 {
     return A /= B;
 }
+

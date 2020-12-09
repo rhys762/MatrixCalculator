@@ -4,10 +4,12 @@
 #include "MatCalcExcep.hpp"
 
 //return an equation parsed from a string, which is copied by value
-Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
+Equation<Token> matrixEquationParse(std::string str, Workspace & w)
 {
+    std::cout << "MEP recieved \"" << str << "\"\n";
+
 	//the equation we will build up over the parse
-	Equation<Matrix> output;
+    Equation<Token> output;
 	
 	//for loops and substrs
 	size_t start = 0;
@@ -40,8 +42,11 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
 			{
                 throw MatCalcExcep("Couldnt find closing bracket", str, start - 1);
 			}
+
+            std::cout << "MEP found matrix string \"" << str.substr(start, len) << "\"\n";
+
 			//if it was the closing bracket, send the contents to matrixParse and append to equation
-			output.appendValue(matrixParse(str.substr(start, len)));
+            output.appendValue(Token(Variable(matrixParse(str.substr(start, len)))));
 			//now move start forward
             start += (len + 1);
 		}
@@ -54,7 +59,7 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
 				len++;
 			}
 
-			output.appendValue(w[str.substr(start, len)]);
+            output.appendValue(Token(&w[str.substr(start, len)]));
 			start += len;
 		}
 		else if(str[start] == ' ')
@@ -68,6 +73,8 @@ Equation<Matrix> matrixEquationParse(std::string str, Workspace & w)
             throw MatCalcExcep("unexpected character", str, start);
 		}
 	}
+
+    std::cout << "MEP parsed \"" << output << "\"\n";
 
 	return output;
 }

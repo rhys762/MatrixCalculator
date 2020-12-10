@@ -1,0 +1,10 @@
+A Matrix Calculator
+Depends on QT development libraries and qt creator for the build probably.
+
+TODO
+Make exceptions sensible
+make errors more clear
+double parsing
+fix operators for variables (currently fucked A * B modifies A oops)
+scripting but thats a big maybe
+functions

@@ -6,7 +6,6 @@
 //return an equation parsed from a string, which is copied by value
 Equation<Token> matrixEquationParse(std::string str, Workspace & w)
 {
-    std::cout << "MEP recieved \"" << str << "\"\n";
 
 	//the equation we will build up over the parse
     Equation<Token> output;
@@ -16,7 +15,7 @@ Equation<Token> matrixEquationParse(std::string str, Workspace & w)
 	size_t len;
 
 	//for checking operators
-	const std::string operators = "*/+-()";	
+    const std::string operators = "*/+-()=";
 
 	//iterate over the string
 	while(start < str.length())
@@ -42,8 +41,6 @@ Equation<Token> matrixEquationParse(std::string str, Workspace & w)
 			{
                 throw MatCalcExcep("Couldnt find closing bracket", str, start - 1);
 			}
-
-            std::cout << "MEP found matrix string \"" << str.substr(start, len) << "\"\n";
 
 			//if it was the closing bracket, send the contents to matrixParse and append to equation
             output.appendValue(Token(Variable(matrixParse(str.substr(start, len)))));
@@ -73,8 +70,6 @@ Equation<Token> matrixEquationParse(std::string str, Workspace & w)
             throw MatCalcExcep("unexpected character", str, start);
 		}
 	}
-
-    std::cout << "MEP parsed \"" << output << "\"\n";
 
 	return output;
 }

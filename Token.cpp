@@ -8,35 +8,59 @@ Token::Token()
 Token::Token(const Variable & rvalue)
 {
     mVar = rvalue;
-    std::cout << "created value token with \"" << mVar.toStr() << "\"\n";
+    fresh = false;
 }
 
 //the token is refering to a variable, say "A", as such assigning or modifying this token will modify A as they are one and the same
 Token::Token(Variable * lvalue)
 {
+    fresh = false;
     mRef = lvalue;
+}
+
+//copy
+Token::Token(const Token & other)
+{
+    if(other.mRef)
+    {
+        mRef = other.mRef;
+    }
+    else
+    {
+        mVar = other.mVar;
+    }
+    fresh = false;
 }
 
 //assignment
 Token & Token::operator=(const Token & other)
 {
-    Variable v;
-    if(other.mRef)
+    if(fresh)
     {
-        v = *mRef;
+        mVar = other.mVar;
+        mRef = other.mRef;
+        fresh = false;
     }
     else
     {
-        v = mVar;
-    }
+        Variable v;
+        if(other.mRef)
+        {
+            v = *other.mRef;
+        }
+        else
+        {
+            v = other.mVar;
+        }
 
-    if(mRef)
-    {
-        *mRef = v;
-    }
-    else
-    {
-        mVar = v;
+        if(mRef)
+        {
+            *mRef = v;
+        }
+        else
+        {
+            mVar = v;
+        }
     }
     return *this;
 }

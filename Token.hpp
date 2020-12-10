@@ -21,7 +21,7 @@ class Token
         //the token is refering to a variable, say "A", as such assigning or modifying this token will modify A as they are one and the same
         Token(Variable * lvalue);
         //copy
-        //Token(const Token & other);//trivial? shallow seems fine
+        Token(const Token & other);
         //assignment
         Token & operator=(const Token & other);
         //arithmatic
@@ -41,6 +41,8 @@ class Token
         Variable mVar;
         //if we are actually referring to a lvalue this pointer will point to it, otherwise we are an rValue use mVar
         Variable * mRef = nullptr;
+        bool fresh = true;
+
 };
 
 //debug

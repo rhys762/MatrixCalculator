@@ -66,7 +66,5 @@ Matrix * matrixParse(const std::string & input)
 		}
 	}
 
-    std::cout << "MP parsed " << *output << "\n";
-
 	return output;
 }

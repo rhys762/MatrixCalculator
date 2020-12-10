@@ -1,5 +1,9 @@
 #include "mainwindow.h"
 #include <QApplication>
+//debug
+#include <iostream>
+#include <string>
+#include "matrixParse.hpp"
 
 int main(int argc, char *argv[])
 {

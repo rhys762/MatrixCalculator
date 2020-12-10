@@ -16,13 +16,13 @@ Variable::Variable(Matrix * m)//takes ownership so should be a unique ptr sorry 
 {
     mType = MATRIX;
     mMatrix = m;
-    std::cout << "creating Matrix variable " << *m << "\n";
 }
 
 //copy
 Variable::Variable(const Variable & other)
 {
-    if((mType = other.mType) == MATRIX)
+    mType = other.mType;
+    if(mType == MATRIX)
     {//if matrix
         mMatrix = new Matrix(*other.mMatrix);
     }

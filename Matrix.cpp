@@ -143,14 +143,24 @@ Matrix & Matrix::operator/=(const Matrix & m)
 //print
 std::ostream & operator<<(std::ostream & os, const Matrix & m)
 {
-	for(int r = 0; r < m.mRows; r++)
+    auto printRow = [&](int r)
+    {
+        for(int c = 0; c < m.mColumns; c++)
+        {
+            os << m.access(r, c) << ' ';
+        }
+    };
+
+    os << '[';
+
+    for(int r = 0; r < m.mRows - 1; r++)
 	{
-		for(int c = 0; c < m.mColumns; c++)
-		{
-			os << m.access(r, c) << ' ';
-		}
-		os << '\n';
+        printRow(r);
+        os << ';';
 	}
+    printRow(m.mRows-1);
+
+    os << ']';
 
 	return os;
 }

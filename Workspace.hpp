@@ -17,9 +17,15 @@ class Workspace
 	public:
 		//retrieve variable name
         Variable & operator[](const std::string & str);
+
+        //write the workspace to file
+        void writeToFile(const std::string & path);
+
+        //read a workspace from file
+        void readFromFile(const std::string & path);
 	private:
 		//the list of variables in the workspace
-        std::map<std::string, Variable> variables;
+        std::map<std::string, Variable> mVariables;
 
 };
 

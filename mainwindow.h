@@ -18,6 +18,8 @@ public:
 private slots:
     void on_lineEdit_returnPressed();
 
+    void on_actionSave_Workspace_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -165,6 +165,19 @@ std::string Variable::toStr() const
     }
 }
 
+std::ostream & operator<<(std::ostream & os, const Variable & v)
+{
+    if(v.mType == Variable::MATRIX)
+    {
+        os << *v.mMatrix;
+    }
+    else
+    {
+        os << v.mDouble;
+    }
+    return os;
+}
+
 //external arith
 Variable operator+(Variable A, const Variable & B)
 {

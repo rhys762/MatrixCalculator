@@ -42,6 +42,8 @@ class Variable
         //get the type of variable
         TYPE getType() const;
         std::string toStr() const;
+
+        friend std::ostream & operator<<(std::ostream & os, const Variable & v);
     private:
         TYPE mType = NONE;
         double mDouble = 0;

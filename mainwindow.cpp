@@ -3,8 +3,10 @@
 #include "MatCalc.hpp"
 #include "MatCalcExcep.hpp"
 
+#include <QFileDialog>
 #include <string>
 #include <iostream>//debug
+#include <QString>
 
 MatCalc mc;
 
@@ -39,4 +41,10 @@ void MainWindow::on_lineEdit_returnPressed()
     {
         ui->textBrowser->insertHtml("unknown error :(<br>");
     }
+}
+
+void MainWindow::on_actionSave_Workspace_triggered()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Save Workspace As");
+    mc.saveWorkspace(filename.toStdString());
 }

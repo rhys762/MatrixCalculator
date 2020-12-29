@@ -24,8 +24,6 @@ void Workspace::writeToFile(const std::string & path)
 
 void Workspace::readFromFile(const std::string &path)
 {
-    std::cout << "trying to read from file " << path << "\n";
-
     std::fstream file (path, std::fstream::in);
     std::string varName;
     std::string value;

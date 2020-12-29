@@ -45,12 +45,12 @@ void MainWindow::on_lineEdit_returnPressed()
 
 void MainWindow::on_actionSave_Workspace_triggered()
 {
-    QString filename = QFileDialog::getSaveFileName(this, "Save Workspace As");
+    QString filename = QFileDialog::getSaveFileName(this, "Save Workspace As", QString(), tr("Text files (*.mcw)"));
     mc.saveWorkspace(filename.toStdString());
 }
 
 void MainWindow::on_actionOpen_Workspace_triggered()
 {
-    QString filename = QFileDialog::getOpenFileName(this, "Open Workspace");
+    QString filename = QFileDialog::getOpenFileName(this, "Open Workspace", QString(), tr("Text files (*.mcw)"));
     mc.openWorkspace(filename.toStdString());
 }

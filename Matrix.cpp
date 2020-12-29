@@ -31,16 +31,17 @@ Matrix::Matrix(const Matrix & m)
 Matrix::~Matrix()
 {
 	delete [] mElements;
+    mElements = nullptr;
 }
 
 //assignment
 Matrix & Matrix::operator=(const Matrix & m)
 {
-	if(mElements)
-	{
-		delete [] mElements;
-	}
+    //clear old data
+    delete [] mElements;
+    mElements = nullptr;
 	
+    //assign new
 	mSize = m.mSize;
 	mRows = m.mRows;
 	mColumns = m.mColumns;

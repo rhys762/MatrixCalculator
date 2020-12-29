@@ -48,3 +48,9 @@ void MainWindow::on_actionSave_Workspace_triggered()
     QString filename = QFileDialog::getSaveFileName(this, "Save Workspace As");
     mc.saveWorkspace(filename.toStdString());
 }
+
+void MainWindow::on_actionOpen_Workspace_triggered()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Open Workspace");
+    mc.openWorkspace(filename.toStdString());
+}

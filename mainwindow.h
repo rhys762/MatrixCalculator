@@ -20,6 +20,8 @@ private slots:
 
     void on_actionSave_Workspace_triggered();
 
+    void on_actionOpen_Workspace_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

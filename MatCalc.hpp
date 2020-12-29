@@ -18,8 +18,11 @@ class MatCalc
 		//the input for the user, returns a vector of strings which holds the output
 		std::string input(const std::string & userInput);
 
-        //save the current workspace to file
+        //save the current workspace to the destination path
         void saveWorkspace(const std::string & path);
+
+        //opens a workspace from a destination path
+        void openWorkspace(const std::string & path);
 	private:
         //the workspace currently open
         Workspace mWork;

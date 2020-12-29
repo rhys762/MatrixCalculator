@@ -9,7 +9,18 @@ std::string MatCalc::input(const std::string & userInput)
     return eq.solve().getVar().toStr();
 }
 
+//save the current workspace to the destination path
 void MatCalc::saveWorkspace(const std::string &path)
 {
     mWork.writeToFile(path);
+}
+
+//opens a workspace from a destination path
+void MatCalc::openWorkspace(const std::string &path)
+{
+    //clear the contents
+    mWork = Workspace();
+
+    //read
+    mWork.readFromFile(path);
 }

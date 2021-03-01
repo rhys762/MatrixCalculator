@@ -1,7 +1,7 @@
 A Matrix Calculator
 Depends on QT development libraries and qt creator for the build probably.
 
-![](screenshot.png)
+![](./screenshot.png)
 The lines prefixed with '>>' are the user input lines, the lines beneath them show the response from the program.
 
 TODO
